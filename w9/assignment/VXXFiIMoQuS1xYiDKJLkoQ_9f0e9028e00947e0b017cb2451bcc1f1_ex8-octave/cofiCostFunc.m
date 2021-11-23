@@ -40,20 +40,17 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% calculating cost function
+diff = (X*Theta'-Y);
+J = sum((diff.^2)(R==1))/2;
+J = J + lambda*sum(sum(Theta.^2))/2; % regularized term of theta
+J = J + lambda*sum(sum(X.^2))/2; % regularized term of X
 
+X_grad = (diff.*R)*Theta;	% unregularized vectorized implementation
+Theta_grad = ((diff.*R)'*X);	% unregularized vectorized implementation
 
-
-
-
-
-
-
-
-
-
-
-
-
+X_grad = X_grad + (lambda*X);	% regularized
+Theta_grad = Theta_grad + (lambda * Theta);	% regularized
 
 % =============================================================
 
